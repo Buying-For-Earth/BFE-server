@@ -1,5 +1,5 @@
 docker pull wonjun0120/bfe-server
-docker run --env-file /home/ubuntu/.env --publish 5000:5000 -it --detach --name bfe-flask-server wonjun0120/bfe-server /bin/bash
+docker run --publish 5000:5000 -it --detach --name bfe-flask-server wonjun0120/bfe-server /bin/bash
 
 # DockerHub에 있는 Image를 pull하여 EC2 instance로 가져옵니다.
 # 받아온 Image를 Docker Container에 띄워서 가동시킵니다.
