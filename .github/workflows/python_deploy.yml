@@ -2,29 +2,34 @@ name: GitHub Action Example
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # master branch로 변경합니다.
-      - name: Checkout master
-        uses: actions/checkout@master
-
-      # node_modules를 매번 설치하면 비효율적이므로 캐시로 저장해둡니다.
-      - name: Cache node modules
-        uses: actions/cache@v1
+      # main branch로 변경합니다.
+      - name: Checkout main
+        uses: actions/checkout@main
+      
+      - uses: actions/checkout@v2
+      
+      # 스탭 명
+      - name: Set up Python
+      # python 가상머신 사용 - 부정확함 
+        uses: actions/setup-python@v2
         with:
-          path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
+          python-version: '3.x'
 
-      # npm 패키지들을 설치합니다.
-      - name: Install dependencies
-        run: npm install
+      # 파이썬 유닛테스트 스텝
+      - name: run unittest
+        # run 명령어로 위 가상머신에서 작업 수행함
+        run: |
+          pwd \
+          cd ./test/ \
+          python3 -m pytest ./test/test.py \
+          cd ..\
+          pwd \
 
       # Docker Image를 자동으로 build하고 push합니다.
       # Docker Hub ID와 PW는 GitHub settings에 있는 secrets에 저장해둡니다.
@@ -34,7 +39,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_ID }}
           password: ${{ secrets.DOCKER_PW }}
-          repository: [Your DockerHub ID]/[Your Repository Name]
+          repository: wonjun0120/bfe-server
           tags: latest
 
       # Docker Hub에 새로운 Image가 push 완료되면 CodeDeploy Agent가 동작되도록 합니다.
