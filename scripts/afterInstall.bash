@@ -1,5 +1,5 @@
-docker pull [Your Docker Image]
-docker run --env-file /home/ubuntu/.env --publish [Local Port Number]:[Docker Port Number] -it --detach --name woomin-facebook-codedeploy [Your Docker Image] /bin/bash
+docker pull wonjun0120/bfe-server
+docker run --env-file /home/ubuntu/.env --publish [Local Port Number]:[Docker Port Number] -it --detach --name woomin-facebook-codedeploy wonjun0120/bfe-server /bin/bash
 
 # DockerHub에 있는 Image를 pull하여 EC2 instance로 가져옵니다.
 # 받아온 Image를 Docker Container에 띄워서 가동시킵니다.
