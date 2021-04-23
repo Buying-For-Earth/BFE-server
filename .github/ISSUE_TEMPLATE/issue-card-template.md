@@ -8,7 +8,6 @@ assignees: wonjun0120
 ---
 
 ### ISSUE
-- Group: `server`, `sr`
 - Detail: fix actions from client redux
 
 ### TODO
