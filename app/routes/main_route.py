@@ -1,7 +1,12 @@
 from flask import Blueprint, request
+from flask_restful import Api
+
+from app.controllers.hello import *
 
 bp = Blueprint('main', __name__)
+api = Api(bp)
 
-@bp.route('/hello')
-def hello():
-    return 'hello!'
+api.add_resource(Hello, '/hello')
+# @bp.route('/hello')
+# def hello():
+#     return 'hello!'
