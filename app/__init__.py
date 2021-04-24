@@ -1,7 +1,10 @@
 from flask import Flask
+from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import config
+
+from app.controllers.hello import api as hello_ns
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -20,9 +23,14 @@ def create_app(config=None):
     # db.init_app(app)
     # migrate.init_app(app, db)
 
-    from app.routes import main_route
-    app.register_blueprint(main_route.bp)
-    # app.register_blueprint(user_route.bp, url_prefix='/user')
+    api = Api(
+        app,
+        version='0.1',
+        title='Buying For Earth Server'
+    )
+
+    
+    api.add_namespace(hello_ns, '/hello')
 
     return app
 
