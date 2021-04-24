@@ -12,4 +12,4 @@ class Hello(Resource):
         """ {"message": "hello"}를 반환하는 간단한 역할입니다. """
         return {
             "message": "hello!"
-        }
+        },200
