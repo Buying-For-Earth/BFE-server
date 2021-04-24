@@ -26,12 +26,22 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip \
+          pip install -r requirements.txt
 
       # 파이썬 유닛테스트 스텝
       - name: run pytest
         # run 명령어로 위 가상머신에서 작업 수행함
         run: |
-          pwd \
-          python3 -m pytest \
-          cd ..\
-          pwd \
+          python3 -m pytest
+          
+      - name: action-slack
+        uses: 8398a7/action-slack@v2.6.0
+        with:
+          status: ${{job.status}}
+          author_name: ServerBuilder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
