@@ -8,7 +8,6 @@ files:
 # 현재는 /home/ubuntu/build/ 라는 경로를 지정하고 있습니다.
 # 아직 우리는 build라는 디렉토리를 EC2 instance 안에 생성하지 않았기 때문에, 이후에 생성할 것입니다.
 
-
 hooks:
   BeforeInstall:
       - location: scripts/beforeInstall.bash
