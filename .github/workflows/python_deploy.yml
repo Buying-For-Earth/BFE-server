@@ -22,12 +22,11 @@ jobs:
           python-version: '3.x'
 
       # 파이썬 유닛테스트 스텝
-      - name: run unittest
+      - name: run pytest
         # run 명령어로 위 가상머신에서 작업 수행함
         run: |
           pwd \
-          cd ./test/ \
-          python3 -m pytest ./test/test.py \
+          python3 -m pytest \
           cd ..\
           pwd \
 
