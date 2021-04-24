@@ -1,0 +1,37 @@
+# This is a basic workflow to help you get started with Actions
+
+name: pytest
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the dev branch
+  push:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:      
+      - uses: actions/checkout@v2
+      
+      # 스탭 명
+      - name: Set up Python
+      # python 가상머신 사용 - 부정확함 
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      # 파이썬 유닛테스트 스텝
+      - name: run pytest
+        # run 명령어로 위 가상머신에서 작업 수행함
+        run: |
+          pwd \
+          python3 -m pytest \
+          cd ..\
+          pwd \
