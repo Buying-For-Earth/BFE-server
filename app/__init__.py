@@ -20,8 +20,9 @@ def create_app(config=None):
     if config is not None:
         app.config.update(config)
 
-    # db.init_app(app)
-    # migrate.init_app(app, db)
+    db.init_app(app)
+    from app import models
+    migrate.init_app(app, db)
 
     api = Api(
         app,
