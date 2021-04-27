@@ -7,6 +7,7 @@ search_result_field = SearchDto.search_result_field
 parser = api.parser()
 parser.add_argument('search_keyword', type=str, help='검색 키워드', required=True)
 parser.add_argument('page', type=int, help='검색 결과 페이지', default=1)
+parser.add_argument('order_by', type=str, help='검색 결과 정렬방법', default='name', choices=('name', 'purchase'))
 
 @api.route('')
 class Search(Resource):
