@@ -6,6 +6,7 @@ import config
 
 from app.controllers.home import api as home_ns
 from app.controllers.product import api as prod_ns
+from app.controllers.search import api as search_ns
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -32,6 +33,7 @@ def create_app(config=None):
 
     api.add_namespace(home_ns, '/home')
     api.add_namespace(prod_ns, '/product')
+    api.add_namespace(search_ns, '/search')
 
     return app
 
