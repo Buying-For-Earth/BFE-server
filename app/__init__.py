@@ -10,6 +10,7 @@ from app.controllers.search import api as search_ns
 from app.controllers.category import api as category_ns
 from app.controllers.basket import api as basket_ns
 from app.controllers.purchase import api as purchase_ns
+from app.controllers.user import api as user_ns
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -50,6 +51,7 @@ def create_app(config=None):
     api.add_namespace(category_ns, '/category')
     api.add_namespace(basket_ns, '/basket')
     api.add_namespace(purchase_ns, '/purchase')
+    api.add_namespace(user_ns, '/user')
 
     return app
 
