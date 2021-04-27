@@ -5,6 +5,8 @@ from flask_migrate import Migrate
 import config
 
 from app.controllers.hello import api as hello_ns
+from app.controllers.home import api as home_ns
+from app.controllers.product import api as prod_ns
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -29,8 +31,9 @@ def create_app(config=None):
         title='Buying For Earth Server'
     )
 
-    
     api.add_namespace(hello_ns, '/hello')
+    api.add_namespace(home_ns, '/home')
+    api.add_namespace(prod_ns, '/product')
 
     return app
 
