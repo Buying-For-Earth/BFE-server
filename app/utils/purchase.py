@@ -2,7 +2,7 @@ from flask_restx import Namespace, fields
 
 class PurchaseDto:
     purchase = Namespace(
-        name='purchase',
+        name='Purchase',
         description='구매 API'
     )
 
