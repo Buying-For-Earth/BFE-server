@@ -4,7 +4,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import config
 
-from app.controllers.hello import api as hello_ns
+from app.controllers.home import api as home_ns
+from app.controllers.product import api as prod_ns
+from app.controllers.search import api as search_ns
+from app.controllers.category import api as category_ns
+from app.controllers.basket import api as basket_ns
+from app.controllers.purchase import api as purchase_ns
+from app.controllers.user import api as user_ns
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -23,14 +29,29 @@ def create_app(config=None):
     # db.init_app(app)
     # migrate.init_app(app, db)
 
+    authorizations = {
+        'apikey': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'X-API-KEY'
+        }
+    }
+
     api = Api(
         app,
         version='0.1',
-        title='Buying For Earth Server'
+        title='Buying For Earth Server',
+        authorizations=authorizations, 
+        security='apikey'
     )
 
-    
-    api.add_namespace(hello_ns, '/hello')
+    api.add_namespace(home_ns, '/home')
+    api.add_namespace(prod_ns, '/product')
+    api.add_namespace(search_ns, '/search')
+    api.add_namespace(category_ns, '/category')
+    api.add_namespace(basket_ns, '/basket')
+    api.add_namespace(purchase_ns, '/purchase')
+    api.add_namespace(user_ns, '/user')
 
     return app
 
