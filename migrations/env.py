@@ -21,11 +21,8 @@ logger = logging.getLogger('alembic.env')
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 
-from app.models import user_model, \
-    shopingbasket_model, \
-    product_model, \
+from app.models import product_model, \
     productoption_model, \
-    orderlist_model, \
     category_model
 
 config.set_main_option(
