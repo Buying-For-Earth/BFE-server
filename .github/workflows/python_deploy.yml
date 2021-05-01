@@ -1,0 +1,54 @@
+name: EC2 deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # main branch로 변경합니다.
+      - name: Checkout main
+        uses: actions/checkout@main
+
+      - uses: actions/checkout@v2
+
+      # 스탭 명
+      - name: Set up Python
+      # python 가상머신 사용 - 부정확함 
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      # Docker Image를 자동으로 build하고 push합니다.
+      # Docker Hub ID와 PW는 GitHub settings에 있는 secrets에 저장해둡니다.
+      # [Your DockerHub ID]/[Your Repository Name] 예시) dal96k/woomin-facebook
+      - name: Docker image build and push
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_ID }}
+          password: ${{ secrets.DOCKER_PW }}
+          repository: wonjun0120/bfe-server
+          tags: latest
+
+      # Docker Hub에 새로운 Image가 push 완료되면 CodeDeploy Agent가 동작되도록 합니다.
+      # --application-name과 --deployment-group-name은 아까 작성하신 애플리케이션 이름과 그룹 이름으로 대체하시면 됩니다.
+      # [Your GitHub Repository] 예시) Woomin-Jeon/facebook-clone-server
+      # "commitId=${GITHUB_SHA}" 코드가 자동으로 최신 commit을 불러옵니다.
+      # 아까 보관해두었던 AWS_ACCESS_KEY_ID와 AWS_SECRET_ACCESS_KEY는 GitHub secrets에 저장해둡니다.
+      - name: Trigger the CodeDeploy in EC2 instance
+        run: aws deploy --region ap-northeast-2 create-deployment --application-name bfeserver --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name bfeserver --github-location repository=Buying-For-Earth/BFE-server,commitId=${GITHUB_SHA}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          Default_region_name: ap-northeast-2
+
+      - name: action-slack
+        uses: 8398a7/action-slack@v2.6.0
+        with:
+          status: ${{job.status}}
+          author_name: ServerBuilder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
