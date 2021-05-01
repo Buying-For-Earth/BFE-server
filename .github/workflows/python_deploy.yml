@@ -2,7 +2,7 @@ name: EC2 deploy
 on:
   push:
     branches:
-      - main
+      - deploy
 
 jobs:
   build:
