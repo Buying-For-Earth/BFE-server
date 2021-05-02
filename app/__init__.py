@@ -27,22 +27,26 @@ def create_app(config=None):
     from app import models
     migrate.init_app(app, db)
 
-    authorizations = {
-        'apikey': {
-            'type': 'apiKey',
-            'in': 'header',
-            'name': 'X-API-KEY'
-        }
-    }
+    # authorizations = {
+    #     'apikey': {
+    #         'type': 'apiKey',
+    #         'in': 'header',
+    #         'name': 'X-API-KEY'
+    #     }
+    # }
 
+    # api = Api(
+    #     app,
+    #     version='0.1',
+    #     title='Buying For Earth Server',
+    #     authorizations=authorizations, 
+    #     security='apikey'
+    # )
     api = Api(
         app,
         version='0.1',
         title='Buying For Earth Server',
-        authorizations=authorizations, 
-        security='apikey'
     )
-
     api.add_namespace(home_ns, '/home')
     api.add_namespace(prod_ns, '/product')
     api.add_namespace(search_ns, '/search')
