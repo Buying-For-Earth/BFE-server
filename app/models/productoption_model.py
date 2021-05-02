@@ -9,6 +9,5 @@ class ProductOption(Base):
     input_type = db.Column(db.String(255),nullable=False)
     input_option = db.Column(db.JSON,nullable=True)
     order_num = db.Column(db.Integer(), nullable=True) # 자동증가 가능한지
-    option = db.Column(db.JSON(), nullable=True)
 
     

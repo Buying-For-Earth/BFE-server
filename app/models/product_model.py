@@ -8,7 +8,7 @@ class Product(Base):
     category_id = db.Column(db.Integer(), db.ForeignKey('category.id'))
     name = db.Column(db.String(255),nullable=False)
     price = db.Column(db.Integer(),nullable=False)
-    detail = db.Column(db.Text(),nullable=True)
+    detail = db.Column(db.JSON(),nullable=True)
 
     shoppingbasket = db.relationship('ShoppingBasket', backref='shopping_basket', lazy=True)
     productoption = db.relationship('ProductOption', backref='product_option', lazy=True)
