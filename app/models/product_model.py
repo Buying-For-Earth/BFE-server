@@ -12,3 +12,5 @@ class Product(Base):
 
     shoppingbasket = db.relationship('ShoppingBasket', backref='shopping_basket', lazy=True)
     productoption = db.relationship('ProductOption', backref='product_option', lazy=True)
+    homecategory = db.relationship('HomeProduct', backref='home_product', lazy=True)
+

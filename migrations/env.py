@@ -23,7 +23,9 @@ logger = logging.getLogger('alembic.env')
 
 from app.models import product_model, \
     productoption_model, \
-    category_model
+    category_model, \
+    homecategory_model, \
+    homeproduct_model
 
 config.set_main_option(
     'sqlalchemy.url',
