@@ -10,10 +10,10 @@ def get_homepage():
         filter(HomeCategory.is_published == True).\
         all()
     
-    print(home)
-    return jsonfy_get_homepage_result(home)
+    # print(home)
+    return jsonfy_get_homepage(home)
 
-def jsonfy_get_homepage_result(home):
+def jsonfy_get_homepage(home):
     li = []
     tmp = {}
     for hc, hp, p in home:
@@ -31,8 +31,5 @@ def jsonfy_get_homepage_result(home):
             "name": el,
             "products": tmp[el]
         })
-    
     # print(li)
-
-
     return li
