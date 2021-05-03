@@ -1,7 +1,7 @@
-from app.models.base_model import Base
 from app import db
+from app.models.productoption_model import ProductOption
 
-class Product(Base):
+class Product(db.Model):
     __tablename__ = 'product'
 
     id = db.Column(db.Integer(), primary_key=True)
@@ -9,8 +9,12 @@ class Product(Base):
     name = db.Column(db.String(255),nullable=False)
     price = db.Column(db.Integer(),nullable=False)
     detail = db.Column(db.JSON(),nullable=True)
+    thumbnail = db.Column(db.Text, nullable=True)
 
-    shoppingbasket = db.relationship('ShoppingBasket', backref='shopping_basket', lazy=True)
+    created_on = db.Column(db.DateTime, server_default=db.func.now())
+    updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+
+    
     productoption = db.relationship('ProductOption', backref='product_option', lazy=True)
-    homecategory = db.relationship('HomeProduct', backref='home_product', lazy=True)
+    homeprod = db.relationship('HomeProduct', backref='homeproduct', lazy=True)
 
