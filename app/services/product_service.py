@@ -8,6 +8,7 @@ def get_product_by_id(prod_id):
         filter(Product.id == ProductOption.product_id).\
         filter(Product.category_id == Category.id).\
         filter(Product.id == prod_id).\
+        order_by(ProductOption.order_num).\
         all()
 
     return jsonfy_get_product_by_id(prod)
