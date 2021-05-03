@@ -4,11 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import config
 
-from app.controllers.home import api as home_ns
-from app.controllers.product import api as prod_ns
-from app.controllers.search import api as search_ns
-from app.controllers.category import api as category_ns
-
 db = SQLAlchemy()
 migrate = Migrate()
 
@@ -47,6 +42,11 @@ def create_app(config=None):
         version='0.1',
         title='Buying For Earth Server',
     )
+    from app.controllers.home import api as home_ns
+    from app.controllers.product import api as prod_ns
+    from app.controllers.search import api as search_ns
+    from app.controllers.category import api as category_ns
+
     api.add_namespace(home_ns, '/home')
     api.add_namespace(prod_ns, '/product')
     api.add_namespace(search_ns, '/search')
