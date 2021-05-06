@@ -3,13 +3,14 @@ from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import config
+from flask_cors import CORS
 
 db = SQLAlchemy()
 migrate = Migrate()
 
 def create_app(config=None):
     app = Flask(__name__)
-    
+    CORS(app)
     if app.config["ENV"] == 'production':
         app.config.from_object('config.ProductionConfig')
     else:
