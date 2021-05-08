@@ -7,6 +7,7 @@ class ProductDto:
     )
 
     product_thumbnail_output_field = product.model('Product Thumbnail',{
+        'id': fields.Integer(description='제품의 아이디입니다'),
         'thumbnail': fields.String(description='img인 경우 이미지가 저장된 s3의 주소'),        
         'name': fields.String(description='제품의 이름입니다'),
         'price': fields.Integer(description='제품의 가격입니다'),

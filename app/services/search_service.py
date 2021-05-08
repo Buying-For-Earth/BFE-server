@@ -14,6 +14,7 @@ def jsonfy_get_products_by_keyword(prods):
     li = []
     for p in prods:
         li.append({
+            "id": p.id,
             "thumbnail": p.thumbnail,
             "name": p.name,
             "price": p.price
