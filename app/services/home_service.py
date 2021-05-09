@@ -20,6 +20,7 @@ def jsonfy_get_homepage(home):
         if hc.name not in tmp:
             tmp[hc.name] = []
         tmp[hc.name].append({
+            "id": p.id,
             "thumbnail": p.thumbnail,
             "name": p.name,
             "price": p.price
