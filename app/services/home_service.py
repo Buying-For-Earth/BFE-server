@@ -8,6 +8,7 @@ def get_homepage():
         filter(HomeCategory.id == HomeProduct.home_category_id).\
         filter(Product.id == HomeProduct.product_id).\
         filter(HomeCategory.is_published == True).\
+        order_by(HomeCategory.order_num).\
         all()
     
     # print(home)
@@ -18,19 +19,24 @@ def jsonfy_get_homepage(home):
     tmp = {}
     for hc, hp, p in home:
         if hc.name not in tmp:
-            tmp[hc.name] = []
-        tmp[hc.name].append({
+            tmp[hc.name] = {}
+            tmp[hc.name]["list"] = []
+            tmp[hc.name]["order_num"] = hc.order_num
+
+        tmp[hc.name]["list"].append({
             "id": p.id,
             "thumbnail": p.thumbnail,
             "name": p.name,
             "price": p.price
         })
+
     # print(tmp)
 
     for el in tmp:
         li.append({
             "name": el,
-            "products": tmp[el]
+            "products": tmp[el]["list"],
+            "order_num": tmp[el]["order_num"]
         })
     # print(li)
     return li
